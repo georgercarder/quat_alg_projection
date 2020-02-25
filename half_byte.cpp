@@ -25,9 +25,9 @@
 // DERIVE CLASS FROM HALFBYTEARRAY.. QUATERNION ARRAY
 
 static const int g_maxArrLength = 1000000;
-static const int g_threadParamAdd = 10000; // TODO MAKE THREAD PARAM INTELLIGENT
+//static const int g_threadParamAdd = 10000; // TODO MAKE THREAD PARAM INTELLIGENT
 // TODO BENCHMARK THREAD ADD VS SINGLE THREAD
-static const int g_threadParamMult = 1000000;
+//static const int g_threadParamMult = 1000000;
 
 class HalfByteArray;
 class QuaternionAlgOverZ_2Array;
@@ -155,34 +155,7 @@ class QuaternionAlgOverZ_2Array : public HalfByteArray {
 			HalfByteArray *cHBA;
 			int hLength = h->GetLength();
 		        int bbLength = bb->GetLength();
-			//if ((hLength < g_threadParamAdd) && (bbLength < g_threadParamAdd)) {
-				printf("debug here");
-				cHBA = AddHalfByteArrays(h, bb);
-			/*} else {
-				int maxLength;
-				(hLength > bbLength) ? maxLength = hLength : maxLength = bbLength;
-				int numberOfThreads = maxLength / g_threadParamAdd;
-				
-				addThreadPayload **tps = (addThreadPayload**)malloc(numberOfThreads * sizeof(addThreadPayload));
-				//HalfByteArray **threadResults = (HalfByteArray**)malloc(numberOfThreads * sizeof(HalfByteArray*)); // scaffolding until thread in place
-				pthread_t *threadIDs = (pthread_t*)malloc(numberOfThreads * sizeof(pthread_t));
-				for (int i = 0; i < numberOfThreads; ++i) {
-					tps[i] = new(addThreadPayload);
-					*tps[i] = addThreadPayload(h, bb, i, g_threadParamAdd);
-					int tRet = pthread_create(&threadIDs[i], NULL, addThread, (void*)tps[i]);
-					if (tRet) {
-						printf("Error\n");// TODO HANDLE	
-					}
-				}
-				for (int i = 0; i < numberOfThreads; ++i) {
-					pthread_join(threadIDs[i], NULL);
-				}
-				/*for (int i = 0; i < numberOfThreads; ++i) {
-					threadResults[i] = tps[i]->m_result;
-				}*/
-				//cHBA = CombineSubArrays(threadResults, numberOfThreads);
-			/*	cHBA = CombineSubArrays(tps, numberOfThreads);
-			}*/
+			cHBA = AddHalfByteArrays(h, bb);
 			return (QuaternionAlgOverZ_2Array*)cHBA;
 		}
 		QuaternionAlgOverZ_2Array* operator*(QuaternionAlgOverZ_2Array &b) {
@@ -371,19 +344,19 @@ int main() {
 
 	*q = Quat(aArray, aLength);
 	*qb = Quat(bArray, bLength);
-
+/*
 	Quat *qc;
 	std::cout << "before add";
 	qc = *q + *qb;
 
 	std::cout << "\n---\n";
 	std::cout << qc << "\n";
-
+*/
 	Quat *qProd;
 	std::cout << "before mult";
 	qProd = *q * *qb;
 	std::cout << "\n---\n";
-//	std::cout << qProd;*/
+	std::cout << qProd;
 		
 	/*	
 	int numberToGenerate = 100;

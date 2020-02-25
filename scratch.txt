@@ -1,0 +1,30 @@
+
+			// THREAD LOGIC TO REUSE WHEN OPTIMIZING OPERATIONS
+			
+			//if ((hLength < g_threadParamAdd) && (bbLength < g_threadParamAdd)) {
+
+			/*} else {
+				int maxLength;
+				(hLength > bbLength) ? maxLength = hLength : maxLength = bbLength;
+				int numberOfThreads = maxLength / g_threadParamAdd;
+				
+				addThreadPayload **tps = (addThreadPayload**)malloc(numberOfThreads * sizeof(addThreadPayload));
+				//HalfByteArray **threadResults = (HalfByteArray**)malloc(numberOfThreads * sizeof(HalfByteArray*)); // scaffolding until thread in place
+				pthread_t *threadIDs = (pthread_t*)malloc(numberOfThreads * sizeof(pthread_t));
+				for (int i = 0; i < numberOfThreads; ++i) {
+					tps[i] = new(addThreadPayload);
+					*tps[i] = addThreadPayload(h, bb, i, g_threadParamAdd);
+					int tRet = pthread_create(&threadIDs[i], NULL, addThread, (void*)tps[i]);
+					if (tRet) {
+						printf("Error\n");// TODO HANDLE	
+					}
+				}
+				for (int i = 0; i < numberOfThreads; ++i) {
+					pthread_join(threadIDs[i], NULL);
+				}
+				/*for (int i = 0; i < numberOfThreads; ++i) {
+					threadResults[i] = tps[i]->m_result;
+				}*/
+				//cHBA = CombineSubArrays(threadResults, numberOfThreads);
+			/*	cHBA = CombineSubArrays(tps, numberOfThreads);
+			}*/
