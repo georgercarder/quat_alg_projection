@@ -272,29 +272,30 @@ uint8_t MultQuatByte(uint8_t *a , uint8_t *b) {
 		ret |= (k << 3);
 	}
 	// 2nd quat
+	uint8_t halfbyte = 4;
 	{
-		uint8_t A1 =  *a & 0x10;
-		uint8_t A2 = (*a & 0x20) >> (1 + 3);
+		uint8_t A1 =  *a & 0x10  >>  halfbyte;
+		uint8_t A2 = (*a & 0x20) >> (1 + halfbyte);
 		
-		uint8_t B1 = (*a & 0x40) >> (2 + 3);
-		uint8_t B2 = (*a & 0x80) >> (3 + 3);	
+		uint8_t B1 = (*a & 0x40) >> (2 + halfbyte);
+		uint8_t B2 = (*a & 0x80) >> (3 + halfbyte);	
 
 		
-		uint8_t C1 =  *b & 0x10;
-		uint8_t C2 = (*b & 0x20) >> (1 + 3);
+		uint8_t C1 =  *b & 0x10  >>  halfbyte;
+		uint8_t C2 = (*b & 0x20) >> (1 + halfbyte);
 		
-		uint8_t D1 = (*b & 0x40) >> (2 + 3);
-		uint8_t D2 = (*b & 0x80) >> (3 + 3);
+		uint8_t D1 = (*b & 0x40) >> (2 + halfbyte);
+		uint8_t D2 = (*b & 0x80) >> (3 + halfbyte);
 	
 		uint8_t one = (A1 & C1) ^ (A2 & C2) ^ (B2 & D2) ^ (B1 & D1);
 		uint8_t i   = (A1 & C2) ^ (A2 & C1) ^ (B1 & D2) ^ (B2 & D1);
 	       	uint8_t j   = (B1 & C1) ^ (B2 & C2) ^ (A1 & D1) ^ (A2 & D2);
 		uint8_t k   = (A2 & D1) ^ (B1 & C2) ^ (B2 & C1) ^ (A1 & D2);
 	
-		ret |= one;
-		ret |= (i << (1 + 3));	
-		ret |= (j << (2 + 3));
-		ret |= (k << (3 + 3));
+		ret |= one << halfbyte;
+		ret |= (i << (1 + halfbyte));	
+		ret |= (j << (2 + halfbyte));
+		ret |= (k << (3 + halfbyte));
 	}
 	return ret;
 }
